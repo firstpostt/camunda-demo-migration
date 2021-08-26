@@ -1,0 +1,40 @@
+
+server:
+  port: 1234
+
+camunda:
+  bpm:
+    auto-deployment-enabled: true
+    database:
+      jdbc-batch-processing: true
+      schema-update: false
+    default-serialization-format: application/json
+    job-execution:
+      deployment-aware: true
+      max-backoff: 5000
+      enabled: true
+    admin-user:
+      id: admin
+      password: admin
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost/camundademo?stringtype=unspecified
+    username: camundademo
+    password: camundademo
+    driver-class-name: org.postgresql.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: 1
+      maximum-pool-size: 10
+  flyway:
+    enabled: true
+    url: ${spring.datasource.url}
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+    table: CAMUNDA_DEMO_VERSION
+    locations: 'classpath:database'
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
